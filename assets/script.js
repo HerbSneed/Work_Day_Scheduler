@@ -1,23 +1,120 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+$(function(event) {
+  var buttonClick = $('.saveBtn');
+
+  buttonClick.on('click', function(event){
+  event.preventDefault();
+
+  var nineAm = $('#hour-9').children().eq(1).val().trim();
+  var tenAm = $('#hour-10').children().eq(1).val().trim();
+  var elevenAm = $('#hour-11').children().eq(1).val().trim();
+  var twelvePm = $('#hour-12').children().eq(1).val().trim();
+  var onePm = $('#hour-01').children().eq(1).val().trim();
+  var twoPm = $('#hour-02').children().eq(1).val().trim();
+  var threePm = $('#hour-03').children().eq(1).val().trim();
+  var fourPm = $('#hour-04').children().eq(1).val().trim();
+  var fivePm = $('#hour-05').children().eq(1).val().trim();
+  
+  var toDos = [
+    nineAm,
+    tenAm,
+    elevenAm,
+    twelvePm,
+    onePm,
+    twoPm,
+    threePm,
+    fourPm,
+    fivePm
+  ];
+  localStorage.setItem('Task', JSON.stringify(toDos));
+  renderTask();
+  });
+
+  function renderTask() {
+    var lastTask = JSON.parse(localStorage.getItem('Task'));
+    if (lastTask !== null) {
+      nineAm.val() = toDos[0];
+      console.log(toDos[0]);
+
+    }
+  }
+
+  var today = dayjs();
+  if (today.hour() > 9) {
+    $('#root').children().eq(0).addClass('past');
+  }else if (today.hour() < 9) {
+    $('#root').children().eq(0).addClass('future');
+  }else if (today.hour() === 9){
+    $('#root').children().eq(0).addClass('present');
+  }
+
+  if (today.hour() > 10) {
+    $('#root').children().eq(1).addClass('past');
+  }else if (today.hour() < 10) {
+    $('#root').children().eq(1).addClass('future');
+  }else if (today.hour() === 10){
+    $('#root').children().eq(1).addClass('present');
+  }
+
+  if (today.hour() > 11) {
+    $('#root').children().eq(2).addClass('past');
+  }else if (today.hour() < 11) {
+    $('#root').children().eq(2).addClass('future');
+  }else if (today.hour() === 11){
+    $('#root').children().eq(0).addClass('present');
+  }
+
+  if (today.hour() > 12) {
+    $('#root').children().eq(3).addClass('past');
+  }else if (today.hour() < 12) {
+    $('#root').children().eq(3).addClass('future');
+  }else if (today.hour() === 12){
+    $('#root').children().eq(3).addClass('present');
+  }
+
+  if (today.hour() > 13) {
+    $('#root').children().eq(4).addClass('past');
+  }else if (today.hour() < 13) {
+    $('#root').children().eq(4).addClass('future');
+  }else if (today.hour() === 13){
+    $('#root').children().eq(4).addClass('present');
+  }
+
+  if (today.hour() > 14) {
+    $('#root').children().eq(5).addClass('past');
+  }else if (today.hour() < 14) {
+    $('#root').children().eq(5).addClass('future');
+  }else if (today.hour() === 14){
+    $('#root').children().eq(5).addClass('present');
+  }
+
+  if (today.hour() > 15) {
+    $('#root').children().eq(6).addClass('past');
+  }else if (today.hour() < 15) {
+    $('#root').children().eq(6).addClass('future');
+  }else if (today.hour() === 15){
+    $('#root').children().eq(6).addClass('present');
+  }
+
+  if (today.hour() > 16) {
+    $('#root').children().eq(7).addClass('past');
+  }else if (today.hour() < 16) {
+    $('#root').children().eq(7).addClass('future');
+  }else if (today.hour() === 16){
+    $('#root').children().eq(7).addClass('present');
+  }
+
+  if (today.hour() > 17) {
+    $('#root').children().eq(8).addClass('past');
+  }else if (today.hour() < 17) {
+    $('#root').children().eq(8).addClass('future');
+  }else if (today.hour() === 17){
+    $('#root').children().eq(8).addClass('present');
+  }
+
+
+  // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements. HINT: How can the id attribute of each time-block be used to do this?
+
+
+  $('#currentDay').text(today.format('MMM D, YYYY'));
+
 });

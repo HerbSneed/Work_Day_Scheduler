@@ -1,6 +1,7 @@
 $(function (event) {
   var buttonClick = $(".saveBtn");
 
+  // Retrieves data from local storage and them to hour blocks.
   function renderTask() {
     var savedTasks = JSON.parse(localStorage.getItem("Task"));
     if (savedTasks !== null) {
@@ -17,6 +18,7 @@ $(function (event) {
   }
   renderTask();
 
+  // Saves task to local storage
   buttonClick.on("click", function (event) {
     event.preventDefault();
 
@@ -44,6 +46,7 @@ $(function (event) {
     localStorage.setItem("Task", JSON.stringify(toDos));
   });
 
+  // Color codes hour blocks based on past, present, future
   var today = dayjs();
   if (today.hour() > 9) {
     $("#root").children().eq(0).addClass("past");
@@ -64,9 +67,9 @@ $(function (event) {
   if (today.hour() > 11) {
     $("#root").children().eq(2).addClass("past");
   } else if (today.hour() < 11) {
-    $("#root").children().eq(0).addClass("future");
+    $("#root").children().eq(2).addClass("future");
   } else if (today.hour() === 11) {
-    $("#root").children().eq(0).addClass("present");
+    $("#root").children().eq(2).addClass("present");
   }
 
   if (today.hour() > 12) {
@@ -117,5 +120,6 @@ $(function (event) {
     $("#root").children().eq(8).addClass("present");
   }
 
+  //Appends the current date to the header
   $("#currentDay").text(today.format("MMM D, YYYY"));
 });
